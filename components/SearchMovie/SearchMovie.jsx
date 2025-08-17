@@ -3,8 +3,9 @@ import { useState } from "react";
 const SearchMovie = () => {
   const [searchData, setSearchData] = useState("");
 
-  const handleChange = () => {
+  const handleChange = (event) => {
     console.log("works");
+    setSearchData({ ...searchData, [event.target.name]: event.target.value });
   };
 
   return (

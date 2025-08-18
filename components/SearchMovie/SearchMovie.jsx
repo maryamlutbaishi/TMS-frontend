@@ -1,7 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const SearchMovie = () => {
+  const navigate = useNavigate();
   const [searchData, setSearchData] = useState({});
   const [searchResult, setSearchResult] = useState([]);
   const handleChange = async (event) => {
@@ -17,8 +19,6 @@ const SearchMovie = () => {
     console.log(searchResult);
   };
 
-  const showMovieDetails = () => {};
-
   return (
     <>
       <input
@@ -29,7 +29,12 @@ const SearchMovie = () => {
         onKeyUp={handleChange}
       />
       {searchResult.map((movie) => (
-        <div onClick={showMovieDetails}>
+        <div
+          onClick={() => {
+            navigate(`/movies/${movie.id}`);
+            console.log("clicked");
+          }}
+        >
           <h3>{movie.title}</h3>
           <img src={`https://image.tmdb.org/t/p/w185/${movie.poster_path}`} />
         </div>

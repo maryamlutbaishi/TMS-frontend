@@ -4,14 +4,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 import SearchMovie from "../components/SearchMovie/SearchMovie";
 import AllLists from "../components/allLists/allLists";
 import ReviewForm from "../components/reviewForm/reviewForm";
+
 const App = () => {
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/review" element={<ReviewForm/>}/>
+          
           <Route path="list" element={<AllLists />} />
           <Route path="search" element={<SearchMovie />} />
+
+          <Route path="/review" element={<ReviewForm/>}/>
+          
         </Routes>
       </Router>
     </>

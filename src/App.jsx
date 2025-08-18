@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 
 import SearchMovie from "../components/SearchMovie/SearchMovie";
 import AllLists from "../components/allLists/allLists";
+import ListForm from "../components/listForm/listForm";
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
         <Routes>
           <Route path="lists" element={<AllLists />} />
           <Route path="search" element={<SearchMovie />} />
+          <Route path="lists/new" element={<ListForm />} />
         </Routes>
       </Router>
     </>

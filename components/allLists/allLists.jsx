@@ -17,7 +17,7 @@ const AllLists = () => {
           return <p key={index}>{list.name}</p>;
         })}
       </ul>
-      <a href="listForm.jsx">
+      <a href="lists/new">
         <button>add</button>
       </a>
     </>

@@ -17,6 +17,8 @@ const SearchMovie = () => {
     console.log(searchResult);
   };
 
+  const showMovieDetails = () => {};
+
   return (
     <>
       <input
@@ -27,7 +29,7 @@ const SearchMovie = () => {
         onKeyUp={handleChange}
       />
       {searchResult.map((movie) => (
-        <div>
+        <div onClick={showMovieDetails}>
           <h3>{movie.title}</h3>
           <img src={`https://image.tmdb.org/t/p/w185/${movie.poster_path}`} />
         </div>

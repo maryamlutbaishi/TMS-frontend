@@ -1,4 +1,4 @@
-body {
+/* body {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@ body {
   width: calc(100% - 4rem);
   max-width: 1200px;
   justify-content: center;
-}
+} */
 
 /* .habits-container {
   padding: 20px;

@@ -57,7 +57,9 @@ const SearchMovie = () => {
               navigate(`/movies/${movie.id}`);
             }}
           >
-            <h3>{movie.title ? movie.title : movie.name}</h3>
+            <h3 className="movie_title">
+              {movie.title ? movie.title : movie.name}
+            </h3>
             {movie.poster_path ? (
               <img
                 className="poster"

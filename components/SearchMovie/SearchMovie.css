@@ -13,14 +13,12 @@ body {
   display: flex;
   padding: 10px 10px;
   align-items: center;
+  background-color: white;
 }
 
 .search_icon_container {
-  margin-right: -10px;
-}
-
-.all-movies {
-  margin-top: 50px;
+  margin-right: 0px;
+  z-index: 100;
 }
 
 .search_input_container input {
@@ -36,32 +34,46 @@ body {
   border-bottom: 1px solid #ccc;
   background-color: transparent;
   display: block;
+  background-color: white;
 }
 
 .search_input_container input:focus {
   outline: none;
+  background-color: white;
+  box-shadow: none;
+}
+
+.all-movies {
+  margin-top: 100px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .one-movie {
-  width: 15%;
   border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 300px;
+  overflow: hidden;
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s;
 }
 
-.one-movie:hover {
-  transform: scale(1.05);
+.movie_title {
+  height: 50px;
 }
 
 .poster {
   width: 100%;
-  height: 250px;
   object-fit: cover;
 }
 
-.one-movie h3 {
-  font-size: 14px;
-  margin: 10px 0;
+.one-movie:hover {
+  transform: scale(1.1);
 }

@@ -13,6 +13,7 @@ const SearchMovie = () => {
       `${import.meta.env.VITE_BACKEND_URL}/movies/search`,
       { params: { query: event.target.value } }
     );
+    console.log("foundMovie: ", foundMovies.data);
 
     setSearchResult(foundMovies.data);
   };
@@ -43,6 +44,7 @@ const SearchMovie = () => {
                 movie.poster_path ? movie.poster_path : movie.backdrop_path
               }`}
             />
+            <p>ID: {movie.id}</p>
           </div>
         ))}
       </div>

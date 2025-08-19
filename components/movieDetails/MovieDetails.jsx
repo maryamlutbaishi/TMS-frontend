@@ -21,6 +21,13 @@ function MovieDetails() {
     };
     getMovieDetails()
   },[id]);
+  return(
+    <>
+    <h1>${formDetails.data.title}</h1>
+    </>
+  )
 }
+
+
 
 export default MovieDetails;

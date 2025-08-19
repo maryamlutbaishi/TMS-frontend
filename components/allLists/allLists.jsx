@@ -5,6 +5,7 @@ const AllLists = () => {
   const [lists, setLists] = useState([]);
   const getAllLists = async () => {
     const result = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/list`);
+    console.log(result);
     setLists(result.data);
   };
   useEffect(() => {

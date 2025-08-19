@@ -4,7 +4,7 @@ import { createList } from "../../lib/api";
 
 const ListForm = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState("");
+  const [formData, setFormData] = useState({ name: "" });
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });

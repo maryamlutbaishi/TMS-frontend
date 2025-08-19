@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import "./SearchMovie.css";
 
 const SearchMovie = () => {
   const navigate = useNavigate();
@@ -14,31 +15,41 @@ const SearchMovie = () => {
       { params: { query: event.target.value } }
     );
 
-    setSearchResult(foundMovies.data.results);
+    setSearchResult(foundMovies.data);
     console.log(foundMovies.data.results);
     console.log(searchResult);
   };
 
   return (
     <>
-      <input
-        type="text"
-        id="query"
-        name="query"
-        placeholder="search for a movie"
-        onKeyUp={handleChange}
-      />
-      {searchResult.map((movie) => (
-        <div
-          onClick={() => {
-            navigate(`/movies/${movie.id}`);
-            console.log("clicked");
-          }}
-        >
-          <h3>{movie.title}</h3>
-          <img src={`https://image.tmdb.org/t/p/w185/${movie.poster_path}`} />
-        </div>
-      ))}
+      <div className="search-bar">
+        <input
+          type="text"
+          id="query"
+          name="query"
+          placeholder="search for a movie"
+          onKeyUp={handleChange}
+        />
+      </div>
+      <div className="all-movies">
+        {searchResult.map((movie) => (
+          <div
+            className="one-movie"
+            onClick={() => {
+              navigate(`/movies/${movie.id}`);
+              console.log("clicked");
+            }}
+          >
+            <h3>{movie.title ? movie.title : movie.name}</h3>
+            <img
+              className="poster"
+              src={`https://image.tmdb.org/t/p/w185/${
+                movie.poster_path ? movie.poster_path : movie.backdrop_path
+              }`}
+            />
+          </div>
+        ))}
+      </div>
     </>
   );
 };

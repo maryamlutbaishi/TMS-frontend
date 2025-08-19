@@ -1,0 +1,48 @@
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff;
+  padding: 20px;
+  padding-top: 80px;
+  width: calc(100% - 4rem);
+  max-width: 1200px;
+  justify-content: center;
+}
+
+/* .habits-container {
+  padding: 20px;
+} */
+
+.list {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  border-radius: 34px;
+  border: 1px solid #ddd;
+  position: relative;
+  padding: 2.8rem;
+  width: 60rem;
+}
+.add-button {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  border-radius: 34px;
+  border: 1px solid #ddd;
+  position: relative;
+  padding: 2.8rem;
+  width: 20%;
+  margin-left: 450px;
+  font-size: 30px;
+}
+
+.lists-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

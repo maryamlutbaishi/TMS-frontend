@@ -38,13 +38,16 @@ const SearchMovie = () => {
             }}
           >
             <h3>{movie.title ? movie.title : movie.name}</h3>
-            <img
-              className="poster"
-              src={`https://image.tmdb.org/t/p/w185/${
-                movie.poster_path ? movie.poster_path : movie.backdrop_path
-              }`}
-            />
-            <p>ID: {movie.id}</p>
+            {movie.poster_path ? (
+              <img
+                className="poster"
+                src={`https://image.tmdb.org/t/p/w185/${
+                  movie.poster_path ? movie.poster_path : movie.backdrop_path
+                }`}
+              />
+            ) : (
+              <img className="poster" src="/shop_01.png" />
+            )}
           </div>
         ))}
       </div>

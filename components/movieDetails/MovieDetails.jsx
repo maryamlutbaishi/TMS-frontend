@@ -32,6 +32,7 @@ function MovieDetails() {
         );
 
         setFormCast(foundCast.data);
+        console.log("Found Cast: ", foundCast)
       } catch (err) {
         console.log(err);
       }
@@ -56,6 +57,12 @@ function MovieDetails() {
       })}
       <h2>{formDetails.overview}</h2>
       <h4>{formDetails.vote_average}</h4>
+      <h1>cast:</h1>
+      <div>
+        {formCast?.cast?.map((actor)=>{
+            return<h2>{actor.name}</h2>
+        })}
+      </div>
     </>
   );
 }

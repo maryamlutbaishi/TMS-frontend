@@ -60,7 +60,9 @@ function MovieDetails() {
       <h1>cast:</h1>
       <div>
         {formCast?.cast?.map((actor)=>{
-            return<h2>{actor.name}</h2>
+            return(<h2>{actor.name}</h2>
+            
+            )
         })}
       </div>
     </>

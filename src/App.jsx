@@ -1,10 +1,6 @@
-import  {jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router";
+import { BrowserRouter as Router, Routes, Route } from "react-router";
 // import { useState } from "react";
 
 import LoginForm from "../components/auth/loginForm";
@@ -17,6 +13,7 @@ import MovieDetails from "../components/movieDetails/MovieDetails";
 import CommentPage from "../components/commentPage/CommentPage";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 import ListPage from "../components/list/listPage";
+import LogoutButton from "../components/auth/logoutButton";
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
@@ -58,9 +55,9 @@ const App = () => {
           <Route
             path="/search"
             element={
-              // <ProtectedRoute>
-              <SearchMovie />
-              // </ProtectedRoute>
+              <ProtectedRoute>
+                <SearchMovie />
+              </ProtectedRoute>
             }
           />
           <Route
@@ -74,9 +71,9 @@ const App = () => {
           <Route
             path="/movies/:id"
             element={
-              // <ProtectedRoute>
-              <MovieDetails />
-              // </ProtectedRoute>
+              <ProtectedRoute>
+                <MovieDetails />
+              </ProtectedRoute>
             }
           />
           <Route
@@ -87,7 +84,6 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-
           <Route path="/list/:id" element={<ListPage />} />
         </Routes>
       </Router>

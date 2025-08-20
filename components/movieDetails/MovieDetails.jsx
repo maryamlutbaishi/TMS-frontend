@@ -4,7 +4,7 @@ import axios from "axios";
 
 function MovieDetails() {
   const { id } = useParams();
-  const [formDetails, setFormDetails] = useState([]);
+  const [formDetails, setFormDetails] = useState({});
   const [formCast, setFormCast] = useState([]);
   const [lists, setLists] = useState(["favorite", "toWatch", "watched"]);
   const [showLists, setShowLists] = useState(false);
@@ -13,52 +13,39 @@ function MovieDetails() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decoded = JSON.parse(atob(token.split(".")[1]));
-        setUserId(decoded.id);
+    if (!token) return;
 
-        axios
-          .get(`${import.meta.env.VITE_BACKEND_URL}/list/${decoded.id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then((res) => {
-            const customListNames = res.data.lists.map((l) => l.name);
-            setLists((prev) => [...prev, ...customListNames]);
-          })
-          .catch((err) => console.error(err));
-      } catch (e) {
-        console.error("Invalid token", e);
-      }
+    try {
+      const decoded = JSON.parse(atob(token.split(".")[1]));
+      setUserId(decoded.id);
+
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/list/${decoded.id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          const customListNames =
+            res.data.customLists?.map((l) => l.name) || [];
+          setLists(["favorite", "toWatch", "watched", ...customListNames]);
+        })
+        .catch((err) => console.error(err));
+    } catch (e) {
+      console.error("Invalid token", e);
     }
   }, []);
 
   useEffect(() => {
-    const getMovieDetails = async () => {
-      try {
-        const foundMovie = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/movies/${id}`
-        );
-        setFormDetails(foundMovie.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getMovieDetails();
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/movies/${id}`)
+      .then((res) => setFormDetails(res.data))
+      .catch((err) => console.error(err));
   }, [id]);
 
   useEffect(() => {
-    const movieCast = async () => {
-      try {
-        const foundCast = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/movies/${id}/credits`
-        );
-        setFormCast(foundCast.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    movieCast();
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/movies/${id}/credits`)
+      .then((res) => setFormCast(res.data.cast || []))
+      .catch((err) => console.error(err));
   }, [id]);
 
   async function addMovieToList(listName) {
@@ -66,8 +53,8 @@ function MovieDetails() {
       alert("Please login first");
       return;
     }
-    const token = localStorage.getItem("token");
 
+    const token = localStorage.getItem("token");
     const movieData = {
       id: formDetails.id,
       title: formDetails.title,
@@ -89,13 +76,13 @@ function MovieDetails() {
   }
 
   async function createNewList() {
-    if (!newListName.trim()) return;
+    if (!newListName.trim() || !userId) return;
 
     const token = localStorage.getItem("token");
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/list/new`,
-        { name: newListName },
+        { name: newListName, userId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -121,14 +108,15 @@ function MovieDetails() {
       />
 
       <h1>{formDetails.title}</h1>
-      {formDetails?.genres?.map((gener) => (
+      {formDetails.genres?.map((gener) => (
         <h4 key={gener.id}>{gener.name}</h4>
       ))}
       <h2>{formDetails.overview}</h2>
       <h4>{formDetails.vote_average}</h4>
+
       <h1>Cast:</h1>
       <div>
-        {formCast?.cast?.map((actor) => (
+        {formCast.map((actor) => (
           <h2 key={actor.id}>{actor.name}</h2>
         ))}
       </div>

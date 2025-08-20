@@ -4,8 +4,14 @@ import "./allLists.css";
 
 const AllLists = () => {
   const [lists, setLists] = useState([]);
+
   const getAllLists = async () => {
-    const result = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/list`);
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    const result = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/list`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     setLists(result.data);
   };
   useEffect(() => {

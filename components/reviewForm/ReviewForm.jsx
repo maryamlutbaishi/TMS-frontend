@@ -17,7 +17,6 @@ const ReviewForm = () => {
     const response = await create(formData);
     console.log(response);
   };
-  
 
   return (
     <form onSubmit={handleSubmit}>

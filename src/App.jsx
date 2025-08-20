@@ -36,7 +36,6 @@ const App = () => {
       <Router>
         {token ? <LogoutButton onLogout={handleLogout} /> : null}
         <Routes>
-
           <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
           <Route path="/signup" element={<SignUp />} />
           <Route
@@ -59,9 +58,9 @@ const App = () => {
           <Route
             path="/search"
             element={
-              <ProtectedRoute>
-                <SearchMovie />{" "}
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              <SearchMovie />
+              // </ProtectedRoute>
             }
           />
           <Route
@@ -75,9 +74,9 @@ const App = () => {
           <Route
             path="/movies/:id"
             element={
-              <ProtectedRoute>
-                <MovieDetails />
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              <MovieDetails />
+              // </ProtectedRoute>
             }
           />
           <Route
@@ -89,8 +88,7 @@ const App = () => {
             }
           />
 
-          <Route path="/list/:id" element={<ListPage/>}/>
-
+          <Route path="/list/:id" element={<ListPage />} />
         </Routes>
       </Router>
     </>

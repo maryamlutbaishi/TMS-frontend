@@ -32,17 +32,32 @@ function MovieDetails() {
         );
 
         setFormCast(foundCast.data);
-        console.log("Found Cast: ", foundCast)
+        console.log("Found Cast: ", foundCast);
       } catch (err) {
         console.log(err);
       }
     };
     movieCast();
   }, [id]);
-  console.log(formCast)
+  console.log(formCast);
+
+  async function addMovie() {
+    const movieData = {
+      id: formDetails.id,
+      title: formDetails.title,
+      poster: formDetails.poster_path,
+    };
+    const addedMovie = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/movies/add`,
+      movieData
+    );
+  }
+
   return (
     <>
       <img
+        height={100}
+        width={100}
         className="poster"
         src={`https://image.tmdb.org/t/p/w185/${
           formDetails.poster_path
@@ -59,12 +74,12 @@ function MovieDetails() {
       <h4>{formDetails.vote_average}</h4>
       <h1>cast:</h1>
       <div>
-        {formCast?.cast?.map((actor)=>{
-            return(<h2>{actor.name}</h2>
-            
-            )
+        {formCast?.cast?.map((actor) => {
+          return <h2>{actor.name}</h2>;
         })}
       </div>
+      <button>like</button>
+      <button onClick={addMovie}>add to list</button>
     </>
   );
 }

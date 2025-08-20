@@ -11,6 +11,7 @@ import AllLists from "../components/allLists/allLists";
 import ReviewForm from "../components/reviewForm/ReviewForm";
 import ListForm from "../components/listForm/listForm";
 import MovieDetails from "../components/movieDetails/MovieDetails";
+import CommentPage from "../components/commentPage/CommentPage";
 const App = () => {
   return (
     <>
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="search" element={<SearchMovie />} />
           <Route path="lists/new" element={<ListForm />} />
           <Route path="/movies/:id" element={<MovieDetails />} />
+          <Route path="/movie/comment" element={<CommentPage/>}/>
         </Routes>
       </Router>
     </>

@@ -1,10 +1,9 @@
-import { jwtDecode } from "jwt-decode";
+import  {jwtDecode } from "jwt-decode";
 import { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useParams,
 } from "react-router";
 // import { useState } from "react";
 
@@ -49,7 +48,7 @@ const App = () => {
             }
           />
           <Route
-            path="lists"
+            path="/lists"
             element={
               <ProtectedRoute>
                 {" "}
@@ -58,7 +57,7 @@ const App = () => {
             }
           />
           <Route
-            path="search"
+            path="/search"
             element={
               <ProtectedRoute>
                 <SearchMovie />{" "}

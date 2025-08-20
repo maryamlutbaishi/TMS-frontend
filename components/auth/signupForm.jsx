@@ -10,7 +10,7 @@ function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://localhost:3000/auth/signup", {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/signup`, {
         username,
         password,
       });

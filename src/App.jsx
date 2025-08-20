@@ -17,6 +17,7 @@ import ListForm from "../components/listForm/listForm";
 import MovieDetails from "../components/movieDetails/MovieDetails";
 import CommentPage from "../components/commentPage/CommentPage";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
+import ListPage from "../components/list/listPage";
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
@@ -36,6 +37,7 @@ const App = () => {
       <Router>
         {token ? <LogoutButton onLogout={handleLogout} /> : null}
         <Routes>
+
           <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
           <Route path="/signup" element={<SignUp />} />
           <Route
@@ -87,6 +89,9 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+
+          <Route path="/list/:id" element={<ListPage/>}/>
+
         </Routes>
       </Router>
     </>

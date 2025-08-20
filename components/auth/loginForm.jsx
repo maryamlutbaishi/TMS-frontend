@@ -16,7 +16,7 @@ function LoginForm({ onLogin }) {
       });
       localStorage.setItem("token", res.data.token);
       onLogin(res.data.token);
-      navigate("/pets");
+      navigate("/search");
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }

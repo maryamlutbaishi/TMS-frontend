@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { create } from "../../lib/api";
+import "./reviewForm.css"
 const ReviewForm = () => {
   const [formData, setFormData] = useState({
     reting: "",
@@ -19,6 +20,7 @@ const ReviewForm = () => {
   };
 
   return (
+    <body>
     <form onSubmit={handleSubmit}>
       <label htmlFor="reting">reting</label>
       <input
@@ -46,7 +48,9 @@ const ReviewForm = () => {
       </label>
       <button type="submit">Submit</button>
     </form>
+    </body>
   );
+  
 };
 
 export default ReviewForm;

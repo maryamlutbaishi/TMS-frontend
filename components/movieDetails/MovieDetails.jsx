@@ -10,6 +10,8 @@ function MovieDetails() {
   const [showLists, setShowLists] = useState(false);
   const [userId, setUserId] = useState(null);
   const [newListName, setNewListName] = useState("");
+  const [activeTab, setActiveTab] = useState("info");
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -45,6 +47,13 @@ function MovieDetails() {
     axios
       .get(`${import.meta.env.VITE_BACKEND_URL}/movies/${id}/credits`)
       .then((res) => setFormCast(res.data.cast || []))
+      .catch((err) => console.error(err));
+  }, [id]);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/review/${id}`)
+      .then((res) => setReviews(res.data))
       .catch((err) => console.error(err));
   }, [id]);
 
@@ -97,54 +106,107 @@ function MovieDetails() {
 
   return (
     <>
+      {/* Movie poster */}
       <img
-        height={100}
-        width={100}
+        height={200}
         className="poster"
-        src={`https://image.tmdb.org/t/p/w185/${
+        src={`https://image.tmdb.org/t/p/w342/${
           formDetails.poster_path || formDetails.backdrop_path
         }`}
         alt={formDetails.title}
       />
 
-      <h1>{formDetails.title}</h1>
-      {formDetails.genres?.map((gener) => (
-        <h4 key={gener.id}>{gener.name}</h4>
-      ))}
-      <h2>{formDetails.overview}</h2>
-      <h4>{formDetails.vote_average}</h4>
-
-      <h1>Cast:</h1>
-      <div>
-        {formCast.map((actor) => (
-          <h2 key={actor.id}>{actor.name}</h2>
-        ))}
+      {/* NAV */}
+      <div style={{ display: "flex", gap: "20px", marginTop: "10px" }}>
+        <button
+          style={{
+            fontWeight: activeTab === "info" ? "bold" : "normal",
+          }}
+          onClick={() => setActiveTab("info")}
+        >
+          Movie Info
+        </button>
+        <button
+          style={{
+            fontWeight: activeTab === "reviews" ? "bold" : "normal",
+          }}
+          onClick={() => setActiveTab("reviews")}
+        >
+          Reviews
+        </button>
       </div>
 
-      <button onClick={() => setShowLists(!showLists)}>Add to List</button>
+      {/* CONTENT AREA */}
+      <div style={{ marginTop: "20px" }}>
+        {activeTab === "info" && (
+          <>
+            <h1>{formDetails.title}</h1>
+            {formDetails.genres?.map((gener) => (
+              <h4 key={gener.id}>{gener.name}</h4>
+            ))}
+            <p>{formDetails.overview}</p>
+            <h4>Rating: {formDetails.vote_average}</h4>
 
-      {showLists && (
-        <div style={{ marginTop: "10px" }}>
-          {lists.map((listName) => (
-            <button
-              key={listName}
-              onClick={() => addMovieToList(listName)}
-              style={{ display: "block", margin: "5px 0" }}
-            >
-              {listName}
+            <h2>Cast</h2>
+            <div>
+              {formCast.map((actor) => (
+                <p key={actor.id}>{actor.name}</p>
+              ))}
+            </div>
+
+            <button onClick={() => setShowLists(!showLists)}>
+              Add to List
             </button>
-          ))}
+            {showLists && (
+              <div style={{ marginTop: "10px" }}>
+                {lists.map((listName) => (
+                  <button
+                    key={listName}
+                    onClick={() => addMovieToList(listName)}
+                    style={{ display: "block", margin: "5px 0" }}
+                  >
+                    {listName}
+                  </button>
+                ))}
+                <div style={{ marginTop: "10px" }}>
+                  <input
+                    placeholder="New list name"
+                    value={newListName}
+                    onChange={(e) => setNewListName(e.target.value)}
+                  />
+                  <button onClick={createNewList}>Create List</button>
+                </div>
+              </div>
+            )}
+          </>
+        )}
 
-          <div style={{ marginTop: "10px" }}>
-            <input
-              placeholder="New list name"
-              value={newListName}
-              onChange={(e) => setNewListName(e.target.value)}
-            />
-            <button onClick={createNewList}>Create List</button>
+        {activeTab === "reviews" && (
+          <div>
+            <h2>Reviews</h2>
+            {reviews.length > 0 ? (
+              reviews.map((r, i) => (
+                <div
+                  key={i}
+                  style={{ borderBottom: "1px solid #ddd", padding: "10px" }}
+                >
+                  <p>
+                    <b>Rating:</b> {r.rating}
+                  </p>
+                  <p>{r.comment}</p>
+                  {r.mood && (
+                    <p>
+                      <i>Mood: {r.mood}</i>
+                    </p>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p>No reviews yet.</p>
+            )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 }

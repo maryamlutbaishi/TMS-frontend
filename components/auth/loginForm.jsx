@@ -11,12 +11,21 @@ function LoginForm({ onLogin }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/auth/login", {
-        username,
-        password,
-      });
-      localStorage.setItem("token", res.data.token);
-      onLogin(res.data.token);
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/auth/login`,
+        { username, password }
+      );
+
+      const token = res.data.token;
+      localStorage.setItem("token", token);
+
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ username: payload.username, id: payload.id })
+      );
+
+      onLogin(token);
       navigate("/search");
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
@@ -40,11 +49,14 @@ function LoginForm({ onLogin }) {
             onChange={(event) => setPassword(event.target.value)}
           />
           <button type="submit">Login</button>
+          {/* <button
+            className="link-button"
+            onclick="window.location.href='/signup'"
+          >
+            signUp
+          </button> */}
         </form>
       </div>
-      <button className="link-button" onclick="window.location.href='/signup'">
-        signUp
-      </button>
     </div>
   );
 }

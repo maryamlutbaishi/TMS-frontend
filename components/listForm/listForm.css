@@ -1,0 +1,49 @@
+.list-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.list-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 300px;
+}
+
+.list-form label {
+  font-weight: bold;
+}
+
+.list-form input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.list-form button {
+  padding: 10px;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.list-form button:hover {
+  background-color: #333;
+}
+
+.list-form button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.error {
+  color: crimson;
+  font-size: 0.9rem;
+}

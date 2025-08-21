@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { createList } from "../../lib/api";
+import axios from "axios";
+import "./ListForm.css";
 
 const ListForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: "" });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -12,25 +15,54 @@ const ListForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await createList(formData);
-    console.log(response);
+    setLoading(true);
+    setError("");
+
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || !token) {
+      setError("not logged in");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/list/new`,
+        { name: formData.name, userId: user.id },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log("List created:", res.data);
+      navigate("/lists");
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.message || "Failed to create");
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
-    <>
-      <h1>create a list</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name: </label>
+    <div className="list-form-container">
+      <h1>Create a list</h1>
+      <form onSubmit={handleSubmit} className="list-form">
+        <label htmlFor="name">List Name</label>
         <input
+          type="text"
           id="name"
           name="name"
-          onChange={handleChange}
+          placeholder="Enter list name"
           value={formData.name}
+          onChange={handleChange}
+          required
         />
-        <button type="submit" onClick={() => navigate(-1)}>
-          create
+
+        {error && <p className="error">{error}</p>}
+        <button type="submit" disabled={loading}>
+          {loading ? "Creating..." : "Create List"}
         </button>
       </form>
-    </>
+    </div>
   );
 };
 export default ListForm;

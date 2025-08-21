@@ -42,31 +42,27 @@ const ListForm = () => {
   };
 
   return (
-
     <>
-      <h1>create a list</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name" className="formLabel">Name: </label>
-        
-    <div className="list-form-container">
-      <h1>Create a list</h1>
-      <form onSubmit={handleSubmit} className="list-form">
-        <label htmlFor="name">List Name</label>
-        
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Enter list name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
+      <div className="list-form-container">
+        <h1>Create a list</h1>
+        <form onSubmit={handleSubmit} className="list-form">
+          <label htmlFor="name">List Name</label>
 
-        {error ? <p className="error">{error}</p> : null}
-        <button type="submit"> creat list</button>
-      </form>
-    </div>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter list name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+
+          {error ? <p className="error">{error}</p> : null}
+          <button type="submit"> creat list</button>
+        </form>
+      </div>
+    </>
   );
 };
 export default ListForm;

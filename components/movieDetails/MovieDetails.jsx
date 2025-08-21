@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import "./MovieDetails.css";
-
+import ReviewForm from "../reviewForm/ReviewForm";
+import CommentPage from "../commentPage/CommentPage";
 function MovieDetails() {
   const { id } = useParams();
   const [formDetails, setFormDetails] = useState({});
@@ -13,7 +14,7 @@ function MovieDetails() {
   // const [newListName, setNewListName] = useState("");
   const [activeTab, setActiveTab] = useState("info");
   const [reviews, setReviews] = useState([]);
-
+  console.log(reviews);
   useEffect(() => {
     const fetchUserLists = async () => {
       const token = localStorage.getItem("token");
@@ -196,23 +197,8 @@ function MovieDetails() {
         {activeTab === "reviews" && (
           <div className="reviews-section">
             <h2>Reviews</h2>
-            {reviews.length > 0 ? (
-              reviews.map((r, i) => (
-                <div key={i} className="review-item">
-                  <p>
-                    <b>Rating:</b> {r.rating}
-                  </p>
-                  <p>{r.comment}</p>
-                  {r.mood && (
-                    <p>
-                      <i>Mood: {r.mood}</i>
-                    </p>
-                  )}
-                </div>
-              ))
-            ) : (
-              <p>No reviews yet.</p>
-            )}
+            <CommentPage />
+            <ReviewForm />
           </div>
         )}
       </div>

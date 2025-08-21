@@ -50,6 +50,9 @@ function LoginForm({ onLogin }) {
           />
           <button type="submit">Login</button>
         </form>
+        <a className="link" href="http://localhost:5173/signup">
+          <button type="submit">Signup</button>
+        </a>
       </div>
     </div>
   );

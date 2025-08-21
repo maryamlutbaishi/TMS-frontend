@@ -59,6 +59,7 @@ const AllLists = () => {
                       src={`https://image.tmdb.org/t/p/w185/${movie.poster}`}
                     />
                     <p>{movie.title}</p>
+                    {/** test delete button */}
                   </div>
                 ))
               ) : (

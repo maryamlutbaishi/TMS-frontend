@@ -42,10 +42,17 @@ const ListForm = () => {
   };
 
   return (
+
+    <>
+      <h1>create a list</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name" className="formLabel">Name: </label>
+        
     <div className="list-form-container">
       <h1>Create a list</h1>
       <form onSubmit={handleSubmit} className="list-form">
         <label htmlFor="name">List Name</label>
+        
         <input
           type="text"
           id="name"

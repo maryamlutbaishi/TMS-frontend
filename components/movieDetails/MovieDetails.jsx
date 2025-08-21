@@ -10,7 +10,7 @@ function MovieDetails() {
   const [lists, setLists] = useState(["favorite", "toWatch", "watched"]);
   const [showLists, setShowLists] = useState(false);
   const [userId, setUserId] = useState(null);
-  const [newListName, setNewListName] = useState("");
+  // const [newListName, setNewListName] = useState("");
   const [activeTab, setActiveTab] = useState("info");
   const [reviews, setReviews] = useState([]);
 
@@ -111,22 +111,22 @@ function MovieDetails() {
     }
   }
 
-  async function createNewList() {
-    if (!newListName.trim() || !userId) return;
+  // async function createNewList() {
+  //   if (!newListName.trim() || !userId) return;
 
-    const token = localStorage.getItem("token");
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/list/new`,
-        { name: newListName, userId },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      console.log(res);
-    } catch (err) {
-      console.error(err);
-      alert("Failed to create list");
-    }
-  }
+  //   const token = localStorage.getItem("token");
+  //   try {
+  //     const res = await axios.post(
+  //       `${import.meta.env.VITE_BACKEND_URL}/list/new`,
+  //       { name: newListName, userId },
+  //       { headers: { Authorization: `Bearer ${token}` } }
+  //     );
+  //     console.log(res);
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert("Failed to create list");
+  //   }
+  // }
 
   return (
     <div className="movie-details-container">
@@ -188,15 +188,6 @@ function MovieDetails() {
                     {listName}
                   </button>
                 ))}
-
-                <div className="new-list">
-                  <input
-                    placeholder="New list name"
-                    value={newListName}
-                    onChange={(e) => setNewListName(e.target.value)}
-                  />
-                  <button onClick={createNewList}>Create List</button>
-                </div>
               </div>
             )}
           </div>

@@ -23,6 +23,7 @@ const ListForm = () => {
     if (!user || !token) {
       setError("not logged in");
       setLoading(false);
+      console.log(loading);
       return;
     }
 

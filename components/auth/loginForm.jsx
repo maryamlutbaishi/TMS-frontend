@@ -28,7 +28,7 @@ function LoginForm({ onLogin }) {
       onLogin(token);
       navigate("/search");
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+      console.log(err);
     }
   };
 
@@ -49,12 +49,6 @@ function LoginForm({ onLogin }) {
             onChange={(event) => setPassword(event.target.value)}
           />
           <button type="submit">Login</button>
-          {/* <button
-            className="link-button"
-            onclick="window.location.href='/signup'"
-          >
-            signUp
-          </button> */}
         </form>
       </div>
     </div>

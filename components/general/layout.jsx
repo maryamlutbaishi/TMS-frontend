@@ -1,14 +1,10 @@
-import { useState } from "react";
 import { Outlet, NavLink, useNavigate } from "react-router";
 import "./Layout.css";
 
 const Layout = () => {
   const navigate = useNavigate();
-  const [showUserMenu, setShowUserMenu] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem("user")) || {
-    username: "Guest",
-  };
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -19,26 +15,16 @@ const Layout = () => {
   return (
     <div className="layout-container">
       <aside className="sidebar">
-        <h2 className="logo">ZAHRA APP</h2>
+        <h2 className="logo">welcome {user.username}</h2>
         <nav className="nav-links">
-          <NavLink to="/" end>
-            Home
-          </NavLink>
           <NavLink to="/search">Search</NavLink>
           <NavLink to="/lists">My Lists</NavLink>
+          <button className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
         </nav>
-
-        <div
-          className="user-section"
-          onClick={() => setShowUserMenu(!showUserMenu)}
-        >
-          <span>{user.username}</span>
-          {showUserMenu && (
-            <div className="user-menu">
-              <button onClick={handleLogout}>Logout</button>
-            </div>
-          )}
-        </div>
+        <div></div>
+        <div></div>
       </aside>
 
       <main className="main-content">

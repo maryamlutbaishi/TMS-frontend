@@ -2,48 +2,47 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  justify-content: center;
+  height: 50vh;
+  padding: 20px;
 }
 
 .list-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  width: 300px;
-}
-
-.list-form label {
-  font-weight: bold;
+  width: 600px;
+  max-width: 400px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
 }
 
 .list-form input {
   padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .list-form button {
-  padding: 10px;
-  background-color: #111;
+  background-color: #617891;
   color: white;
+  padding: 10px;
+  font-size: 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.2s;
+  width: 100px;
+  align-self: center;
 }
 
 .list-form button:hover {
-  background-color: #333;
-}
-
-.list-form button:disabled {
-  background-color: #555;
-  cursor: not-allowed;
+  background-color: #25344f;
 }
 
 .error {
-  color: crimson;
-  font-size: 0.9rem;
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
 }

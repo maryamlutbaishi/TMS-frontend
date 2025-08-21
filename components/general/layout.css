@@ -5,7 +5,7 @@
 
 .sidebar {
   width: 220px;
-  background-color: #111;
+  background-color: #617891;
   color: white;
   display: flex;
   flex-direction: column;
@@ -29,39 +29,14 @@
 }
 
 .nav-links a {
-  color: #ddd;
+  color: white;
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
-  transition: background 0.2s;
 }
 
 .nav-links a:hover {
-  background: #333;
-}
-
-.user-section {
-  cursor: pointer;
-  padding: 10px;
-  background: #222;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.user-menu {
-  margin-top: 8px;
-  background: #333;
-  padding: 10px;
-  border-radius: 4px;
-}
-
-.user-menu button {
-  background: crimson;
-  border: none;
-  color: white;
-  padding: 6px 12px;
-  cursor: pointer;
-  border-radius: 4px;
+  background: #25344f;
 }
 
 .main-content {
@@ -72,7 +47,20 @@
 }
 
 .nav-links a.active {
-  background: #444;
-  color: #ff0000;
+  background: white;
+  color: black;
   font-weight: bold;
+}
+.logout-button {
+  background-color: #617891;
+  color: #25344f;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.logout-button:hover {
+  background-color: white;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
+import "./MovieDetails.css";
 
 function MovieDetails() {
   const { id } = useParams();
@@ -14,52 +15,79 @@ function MovieDetails() {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
+    const fetchUserLists = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
 
-    try {
-      const decoded = JSON.parse(atob(token.split(".")[1]));
-      setUserId(decoded.id);
+      try {
+        const decoded = JSON.parse(atob(token.split(".")[1]));
+        setUserId(decoded.id);
 
-      axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/list/${decoded.id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => {
-          const customListNames =
-            res.data.customLists?.map((l) => l.name) || [];
-          setLists(["favorite", "toWatch", "watched", ...customListNames]);
-        })
-        .catch((err) => console.error(err));
-    } catch (e) {
-      console.error("Invalid token", e);
-    }
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/list/${decoded.id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        const customListNames = res.data.customLists?.map((l) => l.name) || [];
+        setLists(["favorite", "toWatch", "watched", ...customListNames]);
+      } catch (err) {
+        console.error("Error:", err);
+      }
+    };
+
+    fetchUserLists();
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/movies/${id}`)
-      .then((res) => setFormDetails(res.data))
-      .catch((err) => console.error(err));
+    const fetchMovieDetails = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/movies/${id}`
+        );
+        setFormDetails(res.data);
+      } catch (err) {
+        console.error("Error fetching movie details:", err);
+      }
+    };
+
+    fetchMovieDetails();
   }, [id]);
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/movies/${id}/credits`)
-      .then((res) => setFormCast(res.data.cast || []))
-      .catch((err) => console.error(err));
+    const fetchMovieCast = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/movies/${id}/credits`
+        );
+        setFormCast(res.data.cast || []);
+      } catch (err) {
+        console.error("Error fetching cast:", err);
+      }
+    };
+
+    fetchMovieCast();
   }, [id]);
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/review/${id}`)
-      .then((res) => setReviews(res.data))
-      .catch((err) => console.error(err));
+    const fetchReviews = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/review/${id}`
+        );
+        setReviews(res.data);
+      } catch (err) {
+        console.error("Error fetching reviews:", err);
+      }
+    };
+
+    fetchReviews();
   }, [id]);
 
   async function addMovieToList(listName) {
     if (!userId) {
-      alert("Please login first");
+      console.log("Please login first");
       return;
     }
 
@@ -76,11 +104,10 @@ function MovieDetails() {
         movieData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert(`Movie added to ${listName}!`);
       setShowLists(false);
     } catch (err) {
       console.error(err);
-      alert("Failed to add movie");
+      console.log("Failed to add movie");
     }
   }
 
@@ -94,10 +121,7 @@ function MovieDetails() {
         { name: newListName, userId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
-      setLists((prev) => [...prev, res.data.name]);
-      setNewListName("");
-      alert(`List "${res.data.name}" created!`);
+      console.log(res);
     } catch (err) {
       console.error(err);
       alert("Failed to create list");
@@ -105,8 +129,7 @@ function MovieDetails() {
   }
 
   return (
-    <>
-      {/* Movie poster */}
+    <div className="movie-details-container">
       <img
         height={200}
         className="poster"
@@ -116,30 +139,23 @@ function MovieDetails() {
         alt={formDetails.title}
       />
 
-      {/* NAV */}
-      <div style={{ display: "flex", gap: "20px", marginTop: "10px" }}>
+      <div className="tab-buttons">
         <button
-          style={{
-            fontWeight: activeTab === "info" ? "bold" : "normal",
-          }}
+          className={activeTab === "info" ? "active" : ""}
           onClick={() => setActiveTab("info")}
         >
           Movie Info
         </button>
         <button
-          style={{
-            fontWeight: activeTab === "reviews" ? "bold" : "normal",
-          }}
+          className={activeTab === "reviews" ? "active" : ""}
           onClick={() => setActiveTab("reviews")}
         >
           Reviews
         </button>
       </div>
-
-      {/* CONTENT AREA */}
-      <div style={{ marginTop: "20px" }}>
+      <div className="movie-content">
         {activeTab === "info" && (
-          <>
+          <div className="movie-info">
             <h1>{formDetails.title}</h1>
             {formDetails.genres?.map((gener) => (
               <h4 key={gener.id}>{gener.name}</h4>
@@ -148,27 +164,32 @@ function MovieDetails() {
             <h4>Rating: {formDetails.vote_average}</h4>
 
             <h2>Cast</h2>
-            <div>
+            <div className="cast-list">
               {formCast.map((actor) => (
                 <p key={actor.id}>{actor.name}</p>
               ))}
             </div>
 
-            <button onClick={() => setShowLists(!showLists)}>
+            <button
+              className="toggle-lists-button"
+              onClick={() => setShowLists(!showLists)}
+            >
               Add to List
             </button>
+
             {showLists && (
-              <div style={{ marginTop: "10px" }}>
+              <div className="list-buttons">
                 {lists.map((listName) => (
                   <button
                     key={listName}
+                    className="list-item-button"
                     onClick={() => addMovieToList(listName)}
-                    style={{ display: "block", margin: "5px 0" }}
                   >
                     {listName}
                   </button>
                 ))}
-                <div style={{ marginTop: "10px" }}>
+
+                <div className="new-list">
                   <input
                     placeholder="New list name"
                     value={newListName}
@@ -178,18 +199,15 @@ function MovieDetails() {
                 </div>
               </div>
             )}
-          </>
+          </div>
         )}
 
         {activeTab === "reviews" && (
-          <div>
+          <div className="reviews-section">
             <h2>Reviews</h2>
             {reviews.length > 0 ? (
               reviews.map((r, i) => (
-                <div
-                  key={i}
-                  style={{ borderBottom: "1px solid #ddd", padding: "10px" }}
-                >
+                <div key={i} className="review-item">
                   <p>
                     <b>Rating:</b> {r.rating}
                   </p>
@@ -207,7 +225,7 @@ function MovieDetails() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

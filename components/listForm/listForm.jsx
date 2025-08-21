@@ -37,8 +37,6 @@ const ListForm = () => {
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || "Failed to create");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -57,10 +55,8 @@ const ListForm = () => {
           required
         />
 
-        {error && <p className="error">{error}</p>}
-        <button type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Create List"}
-        </button>
+        {error ? <p className="error">{error}</p> : null}
+        <button type="submit"> creat list</button>
       </form>
     </div>
   );

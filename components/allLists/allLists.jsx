@@ -57,7 +57,6 @@ const AllLists = () => {
                     <img
                       className="poster"
                       src={`https://image.tmdb.org/t/p/w185/${movie.poster}`}
-                      alt={movie.title}
                     />
                     <p>{movie.title}</p>
                   </div>

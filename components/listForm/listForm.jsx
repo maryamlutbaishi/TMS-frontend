@@ -19,7 +19,7 @@ const ListForm = () => {
     <>
       <h1>create a list</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name: </label>
+        <label htmlFor="name" className="formLabel">Name: </label>
         <input
           id="name"
           name="name"

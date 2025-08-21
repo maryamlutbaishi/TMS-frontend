@@ -20,25 +20,31 @@ const ReviewForm = () => {
   };
 
   return (
-    <body>
+
     <form onSubmit={handleSubmit}>
-      <label htmlFor="reting">reting</label>
+      <h1>shere your review</h1>
+      
+      <label htmlFor="reting" className="formLabel" >reting</label>
+      <div className="form input">
       <input
         id="reting"
         name="reting"
         value={formData.reting}
         onChange={handleChange}
       />
+      </div>
 
-      <label htmlFor="comment">comment</label>
+      <label htmlFor="comment" className="formLabel">comment</label>
+      <div className="form input">
       <input
         id="comment"
         name="comment"
         value={formData.comment}
         onChange={handleChange}
       />
+      </div>
 
-      <label>
+      <label className="formLabel">
         mood:
         <select name="mood" onChange={handleChange}>
           <option value="happy">happy</option>
@@ -48,9 +54,7 @@ const ReviewForm = () => {
       </label>
       <button type="submit">Submit</button>
     </form>
-    </body>
   );
-  
 };
 
 export default ReviewForm;

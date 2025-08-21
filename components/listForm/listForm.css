@@ -1,0 +1,48 @@
+.list-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  padding: 20px;
+}
+
+.list-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 600px;
+  max-width: 400px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.list-form input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.list-form button {
+  background-color: #617891;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100px;
+  align-self: center;
+}
+
+.list-form button:hover {
+  background-color: #25344f;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+}

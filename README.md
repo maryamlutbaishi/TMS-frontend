@@ -1,4 +1,4 @@
-# 🎬 Movie Tracker App
+# 🎬 The Movie Shelf "TMS"
 
 A full-stack web application for browsing and saving movies using the
 **TMDB API**.\

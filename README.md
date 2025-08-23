@@ -23,6 +23,7 @@ Built with **React (frontend)** and **Node.js + Express + MongoDB
 -   JWT authentication for protected routes.
 -   CRUD operations for user-created movie lists.
 -   Secure password hashing with bcrypt.
+  
 
 ------------------------------------------------------------------------
 

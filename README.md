@@ -11,27 +11,27 @@ Built with **React (frontend)** and **Node.js + Express + MongoDB
 
 ### 🔹 Frontend (React)
 
--   User authentication (Login / Signup).\
--   Search movies using **TMDB API**.\
--   View movie details (poster, title, release date, description).\
--   Save favorite movies into personal lists.\
+-   User authentication (Login / Signup).
+-   Search movies using **TMDB API**.
+-   View movie details (poster, title, release date, description).
+-   Save favorite movies into personal lists.
 -   Responsive UI with simple girly design 🎀.
 
 ### 🔹 Backend (Node.js + Express + MongoDB)
 
 -   RESTful API with routes for **auth**, **movies**, **lists**, and
-    **comments**.\
--   JWT authentication for protected routes.\
--   CRUD operations for user-created movie lists.\
+    **comments**.
+-   JWT authentication for protected routes.
+-   CRUD operations for user-created movie lists.
 -   Secure password hashing with bcrypt.
 
 ------------------------------------------------------------------------
 
 ## 🛠️ Technologies
 
--   **Frontend:** React, React Router, Axios, CSS\
--   **Backend:** Node.js, Express, MongoDB, Mongoose\
--   **Authentication:** JWT, bcrypt\
+-   **Frontend:** React, React Router, Axios, CSS
+-   **Backend:** Node.js, Express, MongoDB, Mongoose
+-   **Authentication:** JWT, bcrypt
 -   **External API:** [TMDB API](https://developer.themoviedb.org/)
 
 ------------------------------------------------------------------------
@@ -69,14 +69,8 @@ Built with **React (frontend)** and **Node.js + Express + MongoDB
 
 ------------------------------------------------------------------------
 
-## 👩‍💻 Authors
+## 👩‍💻 
 
--   Maryam ✨\
+-   Maryam ✨
 -   Zahra 🌸
 
-------------------------------------------------------------------------
-
-## 📌 Notes
-
--   This project is for learning purposes.\
--   TMDB API provides movie data (posters, descriptions, ratings).
